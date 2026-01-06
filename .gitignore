@@ -12,3 +12,4 @@ wheels/
 mongo-data
 polar-*
 .DS_Store
+.ipynb_checkpoints
