@@ -17,3 +17,12 @@ The first approach (the first idea and also suggested by Gemini) was to use the 
 5. We then cluster the runs using KMeans.
 
 Results: I don't really like them - they seem kinda random. 10km and 3km runs are in the same clusters. Some runs that have identical paths end up in different clusters (this is what I don't like the most).
+
+#### 2
+The second approach is something even more simple than the first one. The main idea is to get general information about the run: distance, maximum and minimum coordinates.
+1. We get the data from MongoDB for every run.
+2. For each run, we get the distance, maximum and minimum coordinates.
+3. We get rid of the outliers (similar way to the first approach).
+4. We then cluster the runs using KMeans.
+
+Results: Still not great, maybe even worse than the first approach.
