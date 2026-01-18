@@ -26,3 +26,14 @@ The second approach is something even more simple than the first one. The main i
 4. We then cluster the runs using KMeans.
 
 Results: Still not great, maybe even worse than the first approach.
+
+#### 3
+The third approach takes on the first one but with a different approach. This time instead of passing the raw coordinates (after interpolation) of the runs, we calculate the "distance" between runs by ourselves and then use DBSCAN. This is because with the first approach, it seemed like the algorithm for clustering was overwhelmed by the number of points, and all the tested dimensionality reduction techniques did not help much.
+
+1. We get the data from MongoDB for every run.
+2. For each run, we calculate the distance between consecutive points.
+3. For each run, we normalize the length of the run (because longer runs will have more points) by interpolation to 50 points (more points mean much longer computation time).
+4. For each pair of runs, we calculate "distance" between them. To do this, we use the Dynamic Time Warping (DTW) algorithm - (`compute_distance` function).
+5. We then cluster the runs using DBSCAN with a precomputed distance matrix.
+
+The results look very good, finally something like I expected. More work could be done in regards to the length of the runs, because now we need to provide the `eps` parameter for DBSCAN. However, for longer runs (even similar ones), it's normal that the "distance" is going to be higher because of the increased length of the run (even though the runs are interpolated).
